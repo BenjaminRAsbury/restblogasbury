@@ -2,11 +2,12 @@ var expressSanitizer = require("express-sanitizer"),
     methodOverride  = require("method-override"),
     bodyParser      = require("body-parser"),
     mongoose        = require("mongoose"),
+    mongodb         = require("mongodb"),
     express         = require("express"),
     app             = express();
 
 // App Config
-mongoose.connect('mongodb://localhost:27017/rest_blog', { useNewUrlParser: true });
+mongoose.connect('mongodb://guest:123456a@ds053449.mlab.com:53449/restfulblogasbury', { useNewUrlParser: true });
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -51,10 +52,9 @@ app.get("/blogs/new", (req, res) => {
 });
 // Create
 app.post("/blogs", (req, res) => {
-    console.log(req.body);
     req.body.blog.body = req.sanitize(req.body.blog.body);
-    console.log("================");
-    console.log(req.body);
+    // console.log("================");
+    // console.log(req.body);
     Blog.create(req.body.blog, (err, newBlog) => {
         if (err) {
             console.log(err);
