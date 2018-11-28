@@ -6,8 +6,9 @@ var expressSanitizer = require("express-sanitizer"),
     express         = require("express"),
     app             = express();
 
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/rest_blog";
 // App Config
-mongoose.connect('mongodb://guest:123456a@ds053449.mlab.com:53449/restfulblogasbury', { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true });
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
